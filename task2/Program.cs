@@ -1,24 +1,25 @@
-﻿/* Задача 48: Задайте двумерный массив размера m на n, каждый элемент в массиве находится по формуле:
- Aₘₙ = m+n. Выведите полученный массив на экран.
+﻿/* Задача 47. Задайте двумерный массив размером m×n, заполненный случайными вещественными числами.
 m = 3, n = 4.
-0 1 2 3
-1 2 3 4
-2 3 4 5 */
+0,5 7 -2 -0,2
+1 -3,3 8 -9,9
+8 7,8 -7,1 9
+*/
 
-int[,] InitArray(int m,int n)
+double[,] InitArray(int m,int n)
 {
-    int[,] array = new int[m,n];
+    Random rnd = new Random();
+    double[,] array = new double[m,n];
     for (int i = 0; i < m; i++)
     {
         for (int j = 0; j < n; j++)
         {
-            array[i,j] = i + j;
+            array[i,j] = Math.Round(rnd.NextDouble() * 20 - 10, 1);
         }
     }
     return array;
 }
 
-void PrintArray(int[,] array)
+void PrintArray(double[,] array)
 {
     for (int i = 0; i < array.GetLength(0); i++)
     {
@@ -29,10 +30,12 @@ void PrintArray(int[,] array)
         Console.WriteLine();
     }
 }
+
+
 Console.WriteLine("Введите число m: ");
 int m = int.Parse(Console.ReadLine());
 
 Console.WriteLine("Введите число n: ");
 int n = int.Parse(Console.ReadLine());
-int[,] array = InitArray(m,n);
+double[,] array = InitArray(m,n);
 PrintArray(array);
