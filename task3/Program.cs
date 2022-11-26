@@ -1,5 +1,10 @@
-﻿/* Задача 51: Задайте двумерный массив. Найдите сумму элементов, находящихся на главной диагонали 
-(с индексами (0,0); (1;1) и т.д. */
+﻿/*Задача 52. Задайте двумерный массив из целых чисел. 
+Найдите среднее арифметическое элементов в каждом столбце.
+Например, задан массив:
+1 4 7 2
+5 9 2 3
+8 4 2 4
+Среднее арифметическое каждого столбца: 4,6; 5,6; 3,6; 3. */
 
 int[,] InitArray(int m,int n)
 {
@@ -27,27 +32,29 @@ void PrintArray(int[,] array)
     }
 }
 
-int MainDiagSumm(int[,] array)
+void PrintColumnAverageVAlues(int[,] array,  int n, int m)
 {
-        int sum = 0;
-        for (int i = 0; i < array.GetLength(0); i++)
+    double[] aver = new double[n];
+    for (int i = 0; i < array.GetLength(0); i++)
+    {
+        for (int j = 0; j < array.GetLength(1); j++)
         {
-         for (int j = 0; j < array.GetLength(1); j++)
-            {
-                if(i == j) sum = sum + array[i, j];
-            }
+            aver[j] = aver[j] + array[i,j];
         }
-    return sum;
+    }
+    Console.Write("Среднее арифметическое каждого столбца: ");
+    for (int i = 0; i < n; i++)
+    {
+        aver[i] = Math.Round(aver[i] / m, 2);
+        if(i != n-1) Console.Write($"{aver[i]}; ");
+        else Console.Write($"{aver[i]}.");
+    }
 }
 
-Console.WriteLine("Введите число m: ");
+Console.WriteLine("Введите размер m: ");
 int m = int.Parse(Console.ReadLine());
-
-Console.WriteLine("Введите число n: ");
+Console.WriteLine("Введите размер n: ");
 int n = int.Parse(Console.ReadLine());
 int[,] array = InitArray(m,n);
 PrintArray(array);
-if(array.GetLength(0) != array.GetLength(1))
-    Console.WriteLine("Матирца не симметричная");
-else
-    Console.WriteLine($"сумма элементов гдавной диагонали равна: {MainDiagSumm(array)}");
+PrintColumnAverageVAlues(array, n, m);
