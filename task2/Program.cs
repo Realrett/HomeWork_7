@@ -1,25 +1,26 @@
-﻿/* Задача 47. Задайте двумерный массив размером m×n, заполненный случайными вещественными числами.
-m = 3, n = 4.
-0,5 7 -2 -0,2
-1 -3,3 8 -9,9
-8 7,8 -7,1 9
-*/
+﻿/* Задача 50. Напишите программу, которая на вход принимает позиции элемента в двумерном массиве,
+ и возвращает значение этого элемента или же указание, что такого элемента нет.
+Например, задан массив:
+1 4 7 2
+5 9 2 3
+8 4 2 4
+17 -> такого числа в массиве нет */
 
-double[,] InitArray(int m,int n)
+int[,] InitArray(int m,int n)
 {
     Random rnd = new Random();
-    double[,] array = new double[m,n];
+    int[,] array = new int[m,n];
     for (int i = 0; i < m; i++)
     {
         for (int j = 0; j < n; j++)
         {
-            array[i,j] = Math.Round(rnd.NextDouble() * 20 - 10, 1);
+            array[i,j] = rnd.Next(0, 10);
         }
     }
     return array;
 }
 
-void PrintArray(double[,] array)
+void PrintArray(int[,] array)
 {
     for (int i = 0; i < array.GetLength(0); i++)
     {
@@ -32,10 +33,22 @@ void PrintArray(double[,] array)
 }
 
 
-Console.WriteLine("Введите число m: ");
+Console.WriteLine("Введите размер m: ");
 int m = int.Parse(Console.ReadLine());
-
-Console.WriteLine("Введите число n: ");
+Console.WriteLine("Введите размер n: ");
 int n = int.Parse(Console.ReadLine());
-double[,] array = InitArray(m,n);
+int[,] array = InitArray(m,n);
 PrintArray(array);
+
+Console.WriteLine("Введите номер строки искомого элемента: ");
+int strToPrint = int.Parse(Console.ReadLine());
+Console.WriteLine("Введите номер столбца искомого элемента: ");
+int colToPrint = int.Parse(Console.ReadLine());
+if(array.GetLength(0) - 1 < strToPrint || array.GetLength(1) - 1 < colToPrint)
+    {
+        Console.WriteLine("Элемента с такими индексами нет");
+        /*Console.WriteLine($"{array.GetLength(0)} {strToPrint}");
+        Console.WriteLine($"{array.GetLength(1)} {strToPrint}");*/
+    }
+else
+    Console.WriteLine($"элемент с индексами [{strToPrint}, {colToPrint}] равен: {array[strToPrint, colToPrint]}");
